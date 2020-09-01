@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# == 0 ]
+then 
+	name=$(date "+%Y%m%d")
+else
+	name=$1
+fi
+
+scanimage -d epson2 -x 218 -y 283 --mode Lineart --format=tiff --resolution 300 > $name.tif 
+
+feh -FZ $name.tif
+
+read -p "did it look okay? y/n: " okay
+
+if [ $okay == 'n' ]
+then
+	echo "okay, deleting file..."
+	rm $name.tif
+	exit
+fi
